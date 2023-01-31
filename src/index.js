@@ -348,33 +348,6 @@ const callIstatData = function (regione) {
 // creo point
 app.get('/', async (req, res) => {
 
-    /*let path_py = 'py_process.py';
-    const data = {
-        js_data: "Hello Py",
-        py_data: undefined // must be undefined not null
-    }
-
-
-    const python_process = spawner('python', [path_py, JSON.stringify(data)]);
-
-    //const res_py = python_process.stdout.on('data', (res) => {
-    //  console.log("From py process : " + (res.toString()));
-    // return res.toString();
-    //})
-
-    let tes;
-
-    const res_py = (python_process.stdout.on('data', (data) => {
-        console.log("DATA : " + data.toString())
-        data.pipe(tes)
-        console.log("DATA : " + tes)
-
-        return data.toString()
-    })) */
-
-    // console.log("PY : "  + JSON.stringify(res_py)
-
-
     res.json("Welcome to Vie Italia API")
 })
 
