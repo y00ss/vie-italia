@@ -1,0 +1,23 @@
+
+// links
+const extractLinks = $ => [
+    ...new Set(
+        $('.wp-pagenavi a') // Select pagination links
+            .map((_, a) => $(a).attr('href')) // Extract the href (url) from each link
+            .toArray() // Convert cheerio object to array
+    ),
+];
+
+
+// regioni
+const extractContent = $ =>
+	$('.product')
+		.map((_, product) => {
+			const $product = $(product);
+			return {
+				id: $product.find('a[data-product_id]').attr('data-product_id'),
+				title: $product.find('h2').text(),
+				price: $product.find('.price').text(),
+			};
+		})
+		.toArray();
