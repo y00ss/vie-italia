@@ -275,7 +275,8 @@ async function getUniqueListBy(arr, key) {
     return [...new Map(arr.map(item => [item[key], item])).values()]
 }
 
-
+// Funzione che estrapola nomi delle strade (vie, corsi, piazze .. )
+// passando come paramentro obj provincia contenente tutti i comuni appertenenti
 const getStrade = async function (locale) {
 
     await Promise.all(
@@ -299,6 +300,7 @@ const getStrade = async function (locale) {
 
                 console.log("STRADE UNICHE :" + stradeUnique);
 
+                // piano con le richieste
                 await new Promise(r => setTimeout(r, 1000));
             }))
         })
@@ -308,6 +310,7 @@ const getStrade = async function (locale) {
 }
 
 
+/*todo vedere script python
 const callIstatData = function (regione) {
 
 
@@ -343,15 +346,17 @@ const callIstatData = function (regione) {
         .catch((error) => {
             console.log("errore " + error.toString())
         });
-}
+}*/
 
-// creo point
+// welcome
 app.get('/', async (req, res) => {
 
     res.json("Welcome to Vie Italia API")
 })
 
-
+/**
+ * Endpoint che ritorna tutte le strade appartenenti alla regione, con parametro nomeRegione
+ * */
 app.get('/regione/:nomeRegione', async (req, res) => {
 
     const nodo_json = [];
@@ -367,7 +372,7 @@ app.get('/regione/:nomeRegione', async (req, res) => {
 
     console.log("REGIONE : " + nome_regione);
 
-    //console.log("Caricamento province...");
+    console.log("Caricamento province...");
     await getProvince(obj);
 
     console.log("Caricamento comuni...");
@@ -376,6 +381,7 @@ app.get('/regione/:nomeRegione', async (req, res) => {
     //console.log(JSON.stringify(obj));
     //await  stradeByComune(obj.province[4].comuni[96], 172)
 
+    console.log("Caricamento strade...");
     await getStrade(obj);
 
 
@@ -466,7 +472,9 @@ app.get('/italia/:nomeRegione/:idProv/:nomeProvincia', async (req, res) => {
     //  await client.close();
 })
 
-
+/**
+ * Endpoint per ottenere tutte le strade di uno specifico comune
+ * */
 app.get('/italia/:nomeRegione/:nomeProvincia/:nomeComune', async (req, res) => {
 
     const nodo_json = [];
@@ -558,6 +566,10 @@ app.get('/italia/:nomeRegione/:nomeProvincia/:nomeComune', async (req, res) => {
 })
 
 
+/**
+ * Effetture sraping contemporaneamente crea un timeout da parte openalfa.
+ *
+ * */
 /*app.get('/italia', async (req, res) => {
 
     const nodo_json = [];
